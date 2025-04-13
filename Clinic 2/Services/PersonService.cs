@@ -4,7 +4,7 @@ using DataLayer.Data;
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class PersonService : BaseRepository<Person>, IPersonService
+public class PersonService : PersonRepository, IPersonService
 {
 
     private ClinicDbContext _context;

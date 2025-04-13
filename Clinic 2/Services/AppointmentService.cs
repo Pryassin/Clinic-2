@@ -1,8 +1,6 @@
 ﻿using DataLayer.Data;
-using DataLayer.Repositories;
-using DataLayer.Repositories.Interfaces;
 
-public class AppointmentService : BaseRepository<Appointments>, IAppointment
+public class AppointmentService : AppointmentRepository, IAppointmentService
 {
     public AppointmentService(ClinicDbContext context) : base(context)
     {

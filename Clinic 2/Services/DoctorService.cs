@@ -5,7 +5,7 @@ using DataLayer.Repositories.Interfaces;
 
 namespace Clinic_2.Services
 {
-    public class DoctorService : BaseRepository<Doctor>, IDoctorService
+    public class DoctorService : DoctorRepository, IDoctorService
     {
         public DoctorService(ClinicDbContext context) : base(context)
         {

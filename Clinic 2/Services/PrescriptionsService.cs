@@ -2,12 +2,11 @@
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class PrescriptionsService :BaseRepository<Prescription>, IPrescriptions
+public class PrescriptionsService : PrescriptionRepository, IPrescriptions
 {
-    private readonly ClinicDbContext _context;
-   public PrescriptionsService(ClinicDbContext context) : base(context)
+    public PrescriptionsService(ClinicDbContext context) : base(context)
     {
-        _context = context;
+       
     }
 
 }

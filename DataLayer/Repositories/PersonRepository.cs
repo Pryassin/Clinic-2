@@ -11,17 +11,19 @@ namespace DataLayer.Repositories
         {
             _context = context;
         }
-        IEnumerable<Person> IPersonRepository.GetAll()
+        public IQueryable<Person> GetAll()
         {
-            return _context.Set<Person>().ToList(); // Corrected the syntax and added ToList() to fetch all records
+            return _context.Set<Person>(); 
         }
 
-        IEnumerable<Person> IPersonRepository.GetByName(string name)
+        public IQueryable<Person> GetByName(string name)
         {
-           return _context.Set<Person>()
-                .Where(p => p.Name.Contains(name))
-                .ToList(); 
+            return _context.Set<Person>()
+                 .Where(p => p.Name.Contains(name))
+               ; 
             // Corrected the syntax and added ToList() to fetch records by name
         }
+
+       
     }
 }

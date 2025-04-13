@@ -2,9 +2,9 @@
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class PatientService : BaseRepository<Patient> ,IPatientService
+public class PatientService : PatientRepository ,IPatientService
 {
-    private readonly ClinicDbContext _context;
+    
     public PatientService(ClinicDbContext context):base(context)
     {
    

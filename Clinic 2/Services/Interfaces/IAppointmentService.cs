@@ -1,4 +1,4 @@
-﻿public interface IAppointment
+﻿public interface IAppointmentService
 {
    Appointments GetById(int ID);
     int Add(Appointments entity);

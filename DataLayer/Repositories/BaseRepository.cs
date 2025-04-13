@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class 
     {
         private ClinicDbContext context;
 
@@ -12,21 +12,11 @@ namespace DataLayer.Repositories
         {
             this.context = context;
         }
+        
         public int Add(T entity)
         {
             context.Set<T>().Add(entity);
-            context.SaveChanges();
-            var prop = entity.GetType().GetProperties()
-                         .FirstOrDefault(p => p.Name.EndsWith("ID", StringComparison.OrdinalIgnoreCase)
-                         && p.PropertyType == typeof(int));
-
-            if (prop != null)
-            {
-                return (int)(prop.GetValue(entity) ?? 0);
-                //this will return the ID of the added Entity
-            }
-            //otherwise return 0
-            return 0;
+            return context.SaveChanges();
         }
         public bool Delete(T entity)
         {

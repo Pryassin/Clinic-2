@@ -1,7 +1,10 @@
 ﻿namespace DataLayer.Repositories.Interfaces
 {
-    public interface IPaymentRepository : IBaseRepository<Payment>
+    public interface IPaymentRepository
     {
-        IEnumerable<Payment> GetAll();
+        
+        Payment GetById(int ID);
+        public bool Update(Payment entity);
+        public int Add(Payment entity);
     }
 }

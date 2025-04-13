@@ -1,4 +1,4 @@
-﻿public interface IBaseRepository<T>
+﻿public interface IBaseRepositoryService<T>
 {
     T GetByName(string Name);
     T GetById(int ID);
