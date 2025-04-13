@@ -16,6 +16,12 @@ namespace DataLayer.Repositories
             return _context.Set<Person>(); 
         }
 
+        public Person GetByEmail(string email)
+        {
+            return _context.Set<Person>()
+                .FirstOrDefault(p => p.Email == email);
+        }
+
         public IQueryable<Person> GetByName(string name)
         {
             return _context.Set<Person>()
@@ -24,6 +30,10 @@ namespace DataLayer.Repositories
             // Corrected the syntax and added ToList() to fetch records by name
         }
 
-       
+        public Person GetByPhone(string phone)
+        {
+            return _context.Set<Person>()
+                .FirstOrDefault(p => p.PhoneNumber == phone);
+        }
     }
 }

@@ -2,13 +2,13 @@
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class MedicalRecordsService :MedicalRecordRepository, IMedicalRecordsService
+public class MedicalRecordsService : IMedicalRecordsService
 {
-    
-    public MedicalRecordsService(ClinicDbContext context) : base(context)
-    {
-     
+    private readonly IMedicalRecordRepository _medicalRecordRepository;
+    public MedicalRecordsService(IMedicalRecordRepository medicalRecordRepository) 
+    { _medicalRecordRepository = medicalRecordRepository; 
     }
 
-
 }
+
+

@@ -4,7 +4,7 @@
     public int PatientID { get; set; }
     public int DoctorID { get; set; } // foreign key to Doctor
     public DateTime AppointmentDateTime { get; set; }
-    public byte AppointmentStatus { get; set; }
+    public AppointmentStatus AppointmentStatus { get; set; }
     public int? MedicalRecordID { get; set; } // ? the Medical Record is optional 
     public int PaymentID { get; set; } 
     public Patient Patient { get; set; }

@@ -4,22 +4,13 @@ using DataLayer.Data;
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class PersonService : PersonRepository, IPersonService
+public class PersonService : IPersonService
 {
-
-    private ClinicDbContext _context;
-    public PersonService(ClinicDbContext context):base(context)
+    private readonly IPersonRepository _personRepository;
+    public PersonService(IPersonRepository personRepository)
     {
-        _context = context;
+        _personRepository = personRepository;
     }
 
-    public IEnumerable<Person> GetAll()
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerable<Person> GetByName(string name)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

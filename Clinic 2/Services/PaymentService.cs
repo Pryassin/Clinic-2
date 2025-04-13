@@ -2,10 +2,12 @@
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
 
-public class PaymentService : PaymentRepository, IPaymentService
+public class PaymentService :IPaymentService
 {
-    public PaymentService(ClinicDbContext context) : base(context)
+    IPatientRepository _patientRepository;  
+    public PaymentService(IPatientRepository patientRepository)
     {
+        _patientRepository = patientRepository;
     }
 }
 
