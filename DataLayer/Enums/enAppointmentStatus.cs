@@ -1,4 +1,4 @@
-﻿public enum AppointmentStatus
+﻿public enum enAppointmentStatus
 {
     Scheduled=1,   
     Completed=2,

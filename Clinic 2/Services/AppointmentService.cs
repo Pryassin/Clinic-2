@@ -20,7 +20,7 @@ public class AppointmentService : IAppointmentService
         else
         {
             appointment.AppointmentDateTime = newDateTime;
-            appointment.AppointmentStatus = AppointmentStatus.Rescheduled;
+            appointment.AppointmentStatus = enAppointmentStatus.Rescheduled;
             return _appointmentRepository.Update(appointment);
          
         }
@@ -35,7 +35,7 @@ public class AppointmentService : IAppointmentService
                 DoctorID = doctor.DoctorID,
                 PatientID = patient.PatientID,
                 AppointmentDateTime = date,
-                AppointmentStatus = AppointmentStatus.Scheduled
+                AppointmentStatus = enAppointmentStatus.Scheduled
             };
             _appointmentRepository.Add(appointment);
             return appointment.AppointmentID;
