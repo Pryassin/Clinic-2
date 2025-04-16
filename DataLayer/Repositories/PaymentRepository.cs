@@ -11,16 +11,16 @@ namespace DataLayer.Repositories
         {
             _context = context;
         }
-        public Payment GetById(int ID)
+        public Payment GetPaymentById(int ID)
         {
             return _context.Set<Payment>().Find(ID);
         }
 
-        public int Add(Payment entity)
+        public int AddPayment(Payment entity)
         {
            return _context.Set<Payment>().Add(entity).Entity.PaymentID;
         }
-        public bool Update(Payment entity)
+        public bool UpdatePayment(Payment entity)
         {
             return _context.Set<Payment>().Update(entity).Entity.PaymentID > 0;
         }

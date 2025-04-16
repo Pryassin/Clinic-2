@@ -3,8 +3,9 @@
     public interface IPaymentRepository
     {
         
-        Payment GetById(int ID);
-        public bool Update(Payment entity);
-        public int Add(Payment entity);
+        Payment GetPaymentById(int ID);
+        public bool UpdatePayment(Payment entity);
+        public int AddPayment(Payment entity);
+     
     }
 }
