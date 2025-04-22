@@ -1,7 +1,4 @@
-﻿using DataLayer.Data;
-using DataLayer.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
+﻿using DataLayer.Repositories.Interfaces;
 public class AppointmentService : IAppointmentService
 {
     private readonly IAppointmentRepository _appointmentRepository;
@@ -10,6 +7,7 @@ public class AppointmentService : IAppointmentService
     {
         _appointmentRepository = appointmentRepo;
     }
+
     public bool RescheduleAppointment(Appointments appointment, DateTime newDateTime)
     {
         if (!_appointmentRepository.IsDoctorAvailableForRescheduel(appointment.DoctorID, newDateTime, appointment.AppointmentID) ||
@@ -26,6 +24,7 @@ public class AppointmentService : IAppointmentService
         }
 
     }
+
     public int ScheduleAppointment(Doctor doctor, Patient patient, DateTime date)
     {
         if (_appointmentRepository.IsDoctorAvailable(doctor.DoctorID, date) && _appointmentRepository.IsPatientAvailable(patient.PatientID, date))
@@ -42,4 +41,69 @@ public class AppointmentService : IAppointmentService
         }
         return -1;
     }
+
+    bool IAppointmentService.CancelAppointment(Appointments appointment)
+    {
+        if (appointment == null)
+        {
+            throw new ArgumentNullException(nameof(appointment), "Appointment cannot be null");
+        }
+        if (appointment.AppointmentStatus == enAppointmentStatus.Scheduled&& appointment.AppointmentStatus!=enAppointmentStatus.Rescheduled)
+        {
+            throw new InvalidOperationException("Only scheduled or rescheduled appointments can be cancelled.");
+        }
+        if (appointment.AppointmentDateTime < DateTime.Now)
+        {
+            throw new InvalidOperationException("Cannot cancel an appointment in the past.");
+        }
+        if (!_appointmentRepository.DoesExist(appointment.AppointmentID))
+        {
+            throw new Exception("Appointment does not exist");
+        }
+        else
+        {
+            return _appointmentRepository.CancelAppointment(appointment);
+            
+        }
+    }
+
+    public Appointments GetAppointmentById(int appointmentId)
+    {
+        if (appointmentId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(appointmentId), "cannot be negative");
+        }
+
+        var appointment = _appointmentRepository.GetByID(appointmentId);
+
+        if (appointment == null)
+            throw new Exception("Appointment does not exist.");
+
+        return appointment;
+    }
+
+    public IQueryable<Appointments> GetAppointmentsByDoctorId(int doctorId)
+    {
+        if (doctorId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(doctorId), " cannot be negative");
+        }
+        var appointments = _appointmentRepository.GetAppointmentsByDoctorId(doctorId);
+        if (appointments == null)
+            throw new Exception("No appointments found for this doctor.");
+        return appointments;
+    }
+
+    public IQueryable<Appointments> GetAppointmentsByPatientId(int patientId)
+    {
+        if (patientId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(patientId), " cannot be negative");
+        }
+        var appointments = _appointmentRepository.GetAppointmentsByDoctorId(patientId);
+        if (appointments == null)
+            throw new Exception("No appointments found for this patient.");
+        return appointments;
+    }
+
 }

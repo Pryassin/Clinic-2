@@ -24,6 +24,13 @@ namespace DataLayer.Repositories
             return context.SaveChanges() > 0;
 
         }
+
+        public bool DoesExist(int id)
+        {
+           var entity= context.Set<T>().Find(id);
+            return entity != null;
+        }
+
         public T GetByID(int id)
         {
             return context.Set<T>().Find(id);
