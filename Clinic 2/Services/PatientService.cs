@@ -9,14 +9,15 @@ public class PatientService : IPatientService
     {
         _patientRepository = patientRepository;
     }
-
+    void EnsurePatientNotNull(Patient patient)
+    {
+        if (patient == null)
+            throw new ArgumentNullException(nameof(patient), "Patient cannot be null");
+    }
     public int AddPaytient(Patient patient)
     {
-        if(patient == null)
-        {
-            throw new ArgumentNullException(nameof(patient),"can't be Null");
-        }
-        if(_patientRepository.DoesExist(patient.PatientID))
+        EnsurePatientNotNull(patient);
+        if (_patientRepository.DoesExist(patient.PatientID))
         {
             throw new ArgumentException("Patient already exists");
         }
@@ -30,14 +31,10 @@ public class PatientService : IPatientService
             throw new ArgumentException("Invalid Patient ID can't be negative");
         }
         var patient = _patientRepository.GetByID(id);
-        if (patient == null)
-        {
-            throw new ArgumentException("Patient Does not Exist");
-        }
-        else
-        {
-            return _patientRepository.Delete(patient);
-        }
+        EnsurePatientNotNull(patient);
+             
+        return _patientRepository.Delete(patient);
+        
     }
 
     public Patient GetPatientById(int id)
@@ -47,19 +44,14 @@ public class PatientService : IPatientService
             throw new ArgumentException("Invalid Patient ID can't be negative");
         }
         var patient = _patientRepository.GetByID(id);
-        if (patient == null)
-        {
-            throw new ArgumentException("Patient not found");
-        }
+        EnsurePatientNotNull(patient);
         return patient;
     }
 
     public bool UpdatePatient(Patient patient)
     {
-        if(patient == null)
-        {
-            throw new ArgumentNullException(nameof(patient), "can't be Null");
-        }
+        EnsurePatientNotNull(patient);
+        return _patientRepository.Update(patient);
         
     }
 }
