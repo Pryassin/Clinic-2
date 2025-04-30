@@ -4,25 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Repositories
 {
-    public class PaymentRepository : IPaymentRepository
+    public class PaymentRepository : BaseRepository<Payment>, IPaymentRepository
     {
         private readonly ClinicDbContext _context;
-        public PaymentRepository(ClinicDbContext context) 
+        public PaymentRepository(ClinicDbContext context) :base(context)
         {
             _context = context;
         }
-        public Payment GetPaymentById(int ID)
-        {
-            return _context.Set<Payment>().Find(ID);
-        }
-        public int AddPayment(Payment entity)
-        {
-           return _context.Set<Payment>().Add(entity).Entity.PaymentID;
-        }
-        public bool UpdatePayment(Payment entity)
-        {
-            return _context.Set<Payment>().Update(entity).Entity.PaymentID > 0;
-        }
+     
         public IQueryable<Payment>GetPaymentsByPatient(int patientId)
         {
             return _context.Payments.FromSqlInterpolated(@$"SELECT pay.* FROM dbo.Payments AS pay
@@ -34,7 +23,7 @@ namespace DataLayer.Repositories
         {
            return _context.Payments.FromSqlInterpolated(@$"SELECT * FROM dbo.Payments
             WHERE PaymentDate BETWEEN {from} AND {to}");
-        }
-     
+        }      
+
     }
 }

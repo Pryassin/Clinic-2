@@ -10,18 +10,22 @@ public class AppointmentService : IAppointmentService
 
     public bool RescheduleAppointment(Appointments appointment, DateTime newDateTime)
     {
-        if (!_appointmentRepository.IsDoctorAvailableForRescheduel(appointment.DoctorID, newDateTime, appointment.AppointmentID) ||
-            !_appointmentRepository.IsPatientAvailableForRescheduel(appointment.PatientID, newDateTime, appointment.AppointmentID))
+        if (newDateTime <= DateTime.Now)
         {
-            return false; // Doctor or patient is not available at the new date/time
+            throw new ArgumentException("Rescheduled date must be in the future.");
         }
-        else
-        {
+        bool doctorAvailable = _appointmentRepository.IsDoctorAvailableForRescheduel(
+     appointment.DoctorID, newDateTime, appointment.AppointmentID);
+
+        bool patientAvailable = _appointmentRepository.IsPatientAvailableForRescheduel(
+            appointment.PatientID, newDateTime, appointment.AppointmentID);
+        if (!doctorAvailable||!patientAvailable)
+        
+            return false; // Doctor or patient is not available at the new date/time
+         
             appointment.AppointmentDateTime = newDateTime;
             appointment.AppointmentStatus = enAppointmentStatus.Rescheduled;
             return _appointmentRepository.Update(appointment);
-         
-        }
 
     }
 

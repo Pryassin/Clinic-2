@@ -21,20 +21,13 @@ namespace DataLayer.Repositories
         {
             return _context.Prescriptions.Include(p => p.MedicalRecord).FirstOrDefault(p => p.MedicalRecordID == id);
         }
-        public Prescription ? GetByPatientId(int patientId)
-        {
-            return _context.Prescriptions.FromSqlInterpolated($@"
-             SELECT Pre.* 
-             FROM dbo.Prescriptions AS Pre 
-             INNER JOIN dbo.MedicalRecord Med ON Pre.MedicalRecordID = Med.MedicalRecordID 
-             INNER JOIN dbo.Appointments App ON App.MedicalRecordID = Pre.MedicalRecordID
-             WHERE App.PatientID = {patientId}").FirstOrDefault();
-        }
         public Prescription ? SearchByMedicationName(string name)
         {
             return _context.Prescriptions.Include(p=>p.MedicalRecord).FirstOrDefault(P => P.MedicationName == name);
         }
 
-     
+      
+
+       
     }
 }
