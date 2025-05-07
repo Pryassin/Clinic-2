@@ -26,8 +26,12 @@ namespace DataLayer.Repositories
             return _context.Prescriptions.Include(p=>p.MedicalRecord).FirstOrDefault(P => P.MedicationName == name);
         }
 
-      
 
-       
+        public Prescription? GetByPatientId(int patientId)
+        {
+            throw new NotImplementedException();
+        }
+
+
     }
 }

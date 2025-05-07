@@ -36,13 +36,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.Delete(prescription);
     }
 
-    IQueryable<Prescription> IPrescriptionsService.GetActivePrescriptions(DateTime today)
-    {
-        if (today == default)
-            throw new ArgumentException("Invalid date.");
 
-        return _prescriptionsRepository.GetActivePrescriptions(today);
-    }
 
  
 

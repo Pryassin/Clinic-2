@@ -5,7 +5,9 @@
         Prescription ? GetByMedicalRecordId(int id);
         Prescription ? SearchByMedicationName(string name);
      
+        Prescription ? GetByPatientId(int patientId);
 
-        
+
+
     }
 }

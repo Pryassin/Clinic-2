@@ -1,7 +1,7 @@
 ﻿public interface IPrescriptionsService
 {
     Prescription? GetPrescriptionByMedicalRecordId(int id);
-    IQueryable<Prescription> GetActivePrescriptions(DateTime today);
+  
     Prescription? SearchPrescriptionByMedicationName(string name);
     Prescription? GetPrescriptionByPatientId(int patientId);
 
