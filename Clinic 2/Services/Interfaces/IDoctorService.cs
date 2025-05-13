@@ -2,7 +2,7 @@
 {
     public interface IDoctorService
     {
-        bool AddDoctor(Doctor doctor);
+        int AddDoctor(Doctor doctor);
         bool UpdateDoctor(Doctor doctor);
         bool DeleteDoctor(Doctor doctor);
         Doctor FindDoctorById(int id);

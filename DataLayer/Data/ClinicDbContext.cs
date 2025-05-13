@@ -28,8 +28,7 @@ namespace DataLayer.Data
                 .Build();
             var connectionString = configuration.GetConnectionString("StringConnection");
             optionsBuilder
-    .UseSqlServer(connectionString)
-    .ConfigureWarnings(x => x.Ignore(RelationalEventId.PendingModelChangesWarning));
+    .UseSqlServer(connectionString);
        
 
         }

@@ -17,15 +17,15 @@ namespace Clinic_2.Services
             if (doctor == null)
                 throw new ArgumentNullException(nameof(doctor), "Doctor cannot be null");
         }
-        public bool AddDoctor(Doctor doctor)
-        {
+        public int AddDoctor(Doctor doctor)
+        {   
             EnsureDoctorNotNull(doctor);
             if (_doctorRepository.DoesExist(doctor.DoctorID))
             {
                 throw new InvalidOperationException("Doctor already exists.");
             }
       
-            return _doctorRepository.Add(doctor) > 0;
+            return _doctorRepository.Add(doctor) ;
         }
 
         public bool DeleteDoctor(Doctor doctor)

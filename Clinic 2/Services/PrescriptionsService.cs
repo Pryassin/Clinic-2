@@ -1,5 +1,4 @@
-﻿
-using DataLayer.Repositories.Interfaces;
+﻿using DataLayer.Repositories.Interfaces;
 
 public class PrescriptionsService : IPrescriptionsService
 {
@@ -55,7 +54,7 @@ public class PrescriptionsService : IPrescriptionsService
     Prescription? IPrescriptionsService.GetPrescriptionByMedicalRecordId(int id)
     {
         if (id <= 0)
-            throw new ArgumentException("Invalid medical record ID.");
+            throw new ArgumentException("Invalid l record ID.");
 
         return _prescriptionsRepository.GetByMedicalRecordId(id);
     }
