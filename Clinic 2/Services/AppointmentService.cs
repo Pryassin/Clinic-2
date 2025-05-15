@@ -46,7 +46,7 @@ public class AppointmentService : IAppointmentService
         return -1;
     }
 
-    bool IAppointmentService.CancelAppointment(Appointments appointment)
+    public bool CancelAppointment(Appointments appointment)
     {
         if (appointment == null)
         {
@@ -81,7 +81,7 @@ public class AppointmentService : IAppointmentService
         var appointment = _appointmentRepository.GetByID(appointmentId);
 
         if (appointment == null)
-            throw new Exception("Appointment does not exist.");
+            throw new KeyNotFoundException("Appointment does not exist.");
 
         return appointment;
     }

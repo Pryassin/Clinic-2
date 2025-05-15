@@ -95,4 +95,3 @@ namespace Clinic.Tests.Services
         }
     }
 }
-
