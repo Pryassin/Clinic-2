@@ -6,11 +6,18 @@
     <RootNamespace>Clinic_2</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <DocumentationFile>..\Docs\ServiceLayer.xml</DocumentationFile>
+	
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic.Models\Clinic.Models.csproj" />
     <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Docs\" />
   </ItemGroup>
 
 </Project>

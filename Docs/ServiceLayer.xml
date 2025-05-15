@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Service Layer</name>
+    </assembly>
+    <members>
+        <member name="T:AppointmentService">
+            <summary>
+            Provides services for managing appointments, including scheduling, rescheduling, canceling, and retrieving appointments.
+            </summary>
+        </member>
+        <member name="M:AppointmentService.#ctor(DataLayer.Repositories.Interfaces.IAppointmentRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AppointmentService"/> class.
+            </summary>
+            <param name="appointmentRepo">The appointment repository dependency.</param>
+        </member>
+        <member name="M:AppointmentService.RescheduleAppointment(Appointments,System.DateTime)">
+            <summary>
+            Reschedules an existing appointment to a new date and time.
+            </summary>
+            <param name="appointment">The appointment to reschedule.</param>
+            <param name="newDateTime">The new date and time for the appointment.</param>
+            <returns>True if the appointment was successfully rescheduled; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the new date is not in the future.</exception>
+        </member>
+        <member name="M:AppointmentService.ScheduleAppointment(Doctor,Patient,System.DateTime)">
+            <summary>
+            Schedules a new appointment for a doctor and patient at a specified date and time.
+            </summary>
+            <param name="doctor">The doctor for the appointment.</param>
+            <param name="patient">The patient for the appointment.</param>
+            <param name="date">The date and time of the appointment.</param>
+            <returns>The ID of the scheduled appointment, or -1 if scheduling failed.</returns>
+        </member>
+        <member name="M:AppointmentService.CancelAppointment(Appointments)">
+            <summary>
+            Cancels an existing appointment if it is scheduled or rescheduled and not in the past.
+            </summary>
+            <param name="appointment">The appointment to cancel.</param>
+            <returns>True if the appointment was successfully canceled; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the appointment is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the appointment cannot be canceled.</exception>
+            <exception cref="T:System.Exception">Thrown if the appointment does not exist.</exception>
+        </member>
+        <member name="M:AppointmentService.GetAppointmentById(System.Int32)">
+            <summary>
+            Retrieves an appointment by its unique identifier.
+            </summary>
+            <param name="appointmentId">The appointment ID.</param>
+            <returns>The appointment with the specified ID.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the appointment ID is negative.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the appointment does not exist.</exception>
+        </member>
+        <member name="M:AppointmentService.GetAppointmentsByDoctorId(System.Int32)">
+            <summary>
+            Retrieves all appointments for a specific doctor.
+            </summary>
+            <param name="doctorId">The doctor's ID.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of appointments for the doctor.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the doctor ID is negative.</exception>
+            <exception cref="T:System.Exception">Thrown if no appointments are found for the doctor.</exception>
+        </member>
+        <member name="M:AppointmentService.GetAppointmentsByPatientId(System.Int32)">
+            <summary>
+            Retrieves all appointments for a specific patient.
+            </summary>
+            <param name="patientId">The patient's ID.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of appointments for the patient.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the patient ID is negative.</exception>
+            <exception cref="T:System.Exception">Thrown if no appointments are found for the patient.</exception>
+        </member>
+        <member name="T:Clinic_2.Services.DoctorService">
+            <summary>
+            Service class for managing doctor-related operations.
+            </summary>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.#ctor(DataLayer.Repositories.Interfaces.IDoctorRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Clinic_2.Services.DoctorService"/> class.
+            </summary>
+            <param name="doctorRepository">The doctor repository dependency.</param>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.EnsureDoctorNotNull(Doctor)">
+            <summary>
+            Ensures the provided doctor object is not null.
+            </summary>
+            <param name="doctor">The doctor object to check.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if doctor is null.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.AddDoctor(Doctor)">
+            <summary>
+            Adds a new doctor to the repository.
+            </summary>
+            <param name="doctor">The doctor to add.</param>
+            <returns>The ID of the added doctor.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if doctor is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if doctor already exists.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.DeleteDoctor(Doctor)">
+            <summary>
+            Deletes a doctor from the repository.
+            </summary>
+            <param name="doctor">The doctor to delete.</param>
+            <returns>True if deleted; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if doctor is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if doctor does not exist.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.FindDoctorById(System.Int32)">
+            <summary>
+            Finds a doctor by their ID.
+            </summary>
+            <param name="id">The doctor's ID.</param>
+            <returns>The found doctor.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if ID is less than zero.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if doctor is not found.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.FindDoctorByName(System.String)">
+            <summary>
+            Finds a doctor by their name.
+            </summary>
+            <param name="name">The doctor's name.</param>
+            <returns>The found doctor.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if name is null or empty.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if doctor is not found.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.UpdateDoctor(Doctor)">
+            <summary>
+            Updates an existing doctor in the repository.
+            </summary>
+            <param name="doctor">The doctor to update.</param>
+            <returns>True if updated; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if doctor is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if doctor does not exist.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.GetDoctorsBySpecialization(System.String)">
+            <summary>
+            Gets doctors by their specialization.
+            </summary>
+            <param name="spec">The specialization to filter by.</param>
+            <returns>A queryable collection of doctors.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if specialization is null or empty.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if no doctors are found.</exception>
+        </member>
+        <member name="M:Clinic_2.Services.DoctorService.GetDoctorsWithAppointmentsToday">
+            <summary>
+            Gets doctors who have appointments today.
+            </summary>
+            <returns>A queryable collection of doctors with appointments today.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if no doctors are found.</exception>
+        </member>
+        <member name="T:MedicalRecordsService">
+            <summary>
+            Service class for managing medical records.
+            Provides methods to add, delete, retrieve, and update medical records.
+            </summary>
+        </member>
+        <member name="M:MedicalRecordsService.#ctor(DataLayer.Repositories.Interfaces.IMedicalRecordRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MedicalRecordsService"/> class.
+            </summary>
+            <param name="medicalRecordRepository">The repository for medical records.</param>
+        </member>
+        <member name="M:MedicalRecordsService.AddMedicalRecord(MedicalRecord)">
+            <summary>
+            Adds a new medical record.
+            </summary>
+            <param name="medicalRecord">The medical record to add.</param>
+            <returns>The ID of the added medical record.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="medicalRecord"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if the medical record already exists.</exception>
+        </member>
+        <member name="M:MedicalRecordsService.DeleteMedicalRecord(MedicalRecord)">
+            <summary>
+            Deletes an existing medical record.
+            </summary>
+            <param name="medicalRecord">The medical record to delete.</param>
+            <returns>True if the record was deleted; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="medicalRecord"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if the medical record does not exist.</exception>
+        </member>
+        <member name="M:MedicalRecordsService.GetMedicalRecordByID(System.Int32)">
+            <summary>
+            Retrieves a medical record by its ID.
+            </summary>
+            <param name="id">The ID of the medical record.</param>
+            <returns>The medical record with the specified ID.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="id"/> is negative.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the medical record is not found.</exception>
+        </member>
+        <member name="M:MedicalRecordsService.UpdateMedicalRecord(MedicalRecord)">
+            <summary>
+            Updates an existing medical record.
+            </summary>
+            <param name="medicalRecord">The medical record to update.</param>
+            <returns>True if the record was updated; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="medicalRecord"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if the medical record does not exist.</exception>
+        </member>
+        <member name="T:PatientService">
+            <summary>
+            Service class for managing patient-related operations.
+            </summary>
+        </member>
+        <member name="M:PatientService.#ctor(DataLayer.Repositories.Interfaces.IPatientRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PatientService"/> class.
+            </summary>
+            <param name="patientRepository">The patient repository dependency.</param>
+        </member>
+        <member name="M:PatientService.EnsurePatientNotNull(Patient)">
+            <summary>
+            Ensures the provided patient object is not null.
+            </summary>
+            <param name="patient">The patient to check.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if patient is null.</exception>
+        </member>
+        <member name="M:PatientService.AddPaytient(Patient)">
+            <summary>
+            Adds a new patient to the repository.
+            </summary>
+            <param name="patient">The patient to add.</param>
+            <returns>The ID of the newly added patient.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the patient already exists.</exception>
+        </member>
+        <member name="M:PatientService.DeletePatient(System.Int32)">
+            <summary>
+            Deletes a patient by ID.
+            </summary>
+            <param name="id">The ID of the patient to delete.</param>
+            <returns>True if the patient was deleted; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the ID is negative.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the patient does not exist.</exception>
+        </member>
+        <member name="M:PatientService.GetPatientById(System.Int32)">
+            <summary>
+            Retrieves a patient by ID.
+            </summary>
+            <param name="id">The ID of the patient to retrieve.</param>
+            <returns>The patient with the specified ID.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the ID is negative.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if the patient does not exist.</exception>
+        </member>
+        <member name="M:PatientService.UpdatePatient(Patient)">
+            <summary>
+            Updates an existing patient in the repository.
+            </summary>
+            <param name="patient">The patient to update.</param>
+            <returns>True if the update was successful; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the patient is null.</exception>
+        </member>
+        <member name="T:PaymentService">
+            <summary>
+            Service class for handling payment-related operations.
+            </summary>
+        </member>
+        <member name="M:PaymentService.#ctor(DataLayer.Repositories.Interfaces.IPaymentRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PaymentService"/> class.
+            </summary>
+            <param name="paymentRepository">The payment repository dependency.</param>
+        </member>
+        <member name="M:PaymentService.CheckPaymentIsNotNull(Payment)">
+            <summary>
+            Checks if the provided payment is not null.
+            </summary>
+            <param name="payment">The payment to check.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if payment is null.</exception>
+        </member>
+        <member name="M:PaymentService.AddPayment(Payment)">
+            <summary>
+            Adds a new payment to the repository.
+            </summary>
+            <param name="payment">The payment to add.</param>
+            <returns>The ID of the added payment.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if payment is null.</exception>
+            <exception cref="T:System.Exception">Thrown if the payment fails to save.</exception>
+        </member>
+        <member name="M:PaymentService.DeletePayment(System.Int32)">
+            <summary>
+            Deletes a payment by its ID.
+            </summary>
+            <param name="paymentId">The ID of the payment to delete.</param>
+            <returns>True if the payment was deleted; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if paymentId is less than zero.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the payment is not found.</exception>
+        </member>
+        <member name="M:PaymentService.GetPaymentById(System.Int32)">
+            <summary>
+            Retrieves a payment by its ID.
+            </summary>
+            <param name="paymentId">The ID of the payment to retrieve.</param>
+            <returns>The payment with the specified ID.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if paymentId is less than zero.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the payment is not found.</exception>
+        </member>
+        <member name="M:PaymentService.UpdatePayment(Payment)">
+            <summary>
+            Updates an existing payment.
+            </summary>
+            <param name="payment">The payment to update.</param>
+            <returns>True if the update was successful.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if payment is null.</exception>
+            <exception cref="T:System.Exception">Thrown if the update fails.</exception>
+        </member>
+        <member name="M:PaymentService.ValidateDates(System.DateTime,System.DateTime)">
+            <summary>
+            Validates the provided date range.
+            </summary>
+            <param name="from">The start date.</param>
+            <param name="to">The end date.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the dates are invalid.</exception>
+        </member>
+        <member name="M:PaymentService.GetPaymentsByDateRange(System.DateTime,System.DateTime)">
+            <summary>
+            Retrieves payments within a specified date range.
+            </summary>
+            <param name="from">The start date.</param>
+            <param name="to">The end date.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of payments in the date range.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the dates are invalid.</exception>
+        </member>
+        <member name="M:PaymentService.GetPaymentsByPatient(System.Int32)">
+            <summary>
+            Retrieves payments for a specific patient.
+            </summary>
+            <param name="patientId">The ID of the patient.</param>
+            <returns>An <see cref="T:System.Linq.IQueryable`1"/> of payments for the patient.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if patientId is less than zero.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if no payments are found for the patient.</exception>
+        </member>
+        <member name="T:PersonService">
+            <summary>
+            Provides services for managing Person entities, including add, update, delete, and retrieval operations.
+            </summary>
+        </member>
+        <member name="M:PersonService.#ctor(DataLayer.Repositories.Interfaces.IPersonRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PersonService"/> class.
+            </summary>
+            <param name="personRepository">The repository used for person data access.</param>
+        </member>
+        <member name="M:PersonService.EnsurePersonIsNotNull(Person)">
+            <summary>
+            Ensures that the provided person object is not null.
+            </summary>
+            <param name="person">The person object to check.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if the person is null.</exception>
+        </member>
+        <member name="M:PersonService.AddPerson(Person)">
+            <summary>
+            Adds a new person to the repository.
+            </summary>
+            <param name="person">The person to add.</param>
+            <returns>The ID of the newly added person.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the person is null.</exception>
+            <exception cref="T:System.Exception">Thrown if the person could not be saved.</exception>
+        </member>
+        <member name="M:PersonService.DeletePerson(System.Int32)">
+            <summary>
+            Deletes a person by their ID.
+            </summary>
+            <param name="id">The ID of the person to delete.</param>
+            <returns>True if the person was deleted successfully.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the ID is less than zero.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the person is not found.</exception>
+            <exception cref="T:System.Exception">Thrown if the person could not be deleted.</exception>
+        </member>
+        <member name="M:PersonService.GetPersonById(System.Int32)">
+            <summary>
+            Retrieves a person by their ID.
+            </summary>
+            <param name="id">The ID of the person to retrieve.</param>
+            <returns>The person with the specified ID.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the ID is less than zero.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the person is not found.</exception>
+        </member>
+        <member name="M:PersonService.UpdatePerson(Person)">
+            <summary>
+            Updates an existing person in the repository.
+            </summary>
+            <param name="person">The person object with updated information.</param>
+            <returns>True if the update was successful.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the person is null.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if the person does not exist.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the person ID does not match the existing record.</exception>
+            <exception cref="T:System.Exception">Thrown if the update fails.</exception>
+        </member>
+        <member name="T:PrescriptionsService">
+            <summary>
+            Service class for managing prescriptions.
+            Provides methods to add, delete, retrieve, search, and update prescriptions.
+            </summary>
+        </member>
+        <member name="M:PrescriptionsService.#ctor(DataLayer.Repositories.Interfaces.IPrescriptionsRepository)">
+            <summary>
+            Initializes a new instance of the <see cref="T:PrescriptionsService"/> class.
+            </summary>
+            <param name="prescriptionsRepository">The prescriptions repository dependency.</param>
+        </member>
+        <member name="M:PrescriptionsService.AddPrescription(Prescription)">
+            <summary>
+            Adds a new prescription after validating its data.
+            </summary>
+            <param name="prescription">The prescription to add.</param>
+            <returns>The ID of the newly added prescription.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if prescription is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if medication name is missing or dates are invalid.</exception>
+        </member>
+        <member name="M:PrescriptionsService.DeletePrescription(System.Int32)">
+            <summary>
+            Deletes a prescription by its ID.
+            </summary>
+            <param name="prescriptionId">The ID of the prescription to delete.</param>
+            <returns>True if deleted; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if prescription ID is invalid.</exception>
+        </member>
+        <member name="M:PrescriptionsService.GetPrescriptionById(System.Int32)">
+            <summary>
+            Retrieves a prescription by its ID.
+            </summary>
+            <param name="prescriptionId">The prescription ID.</param>
+            <returns>The prescription if found.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if prescription ID is invalid.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if prescription is not found.</exception>
+        </member>
+        <member name="M:PrescriptionsService.GetPrescriptionByMedicalRecordId(System.Int32)">
+            <summary>
+            Retrieves a prescription by medical record ID.
+            </summary>
+            <param name="id">The medical record ID.</param>
+            <returns>The prescription if found; otherwise, null.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if medical record ID is invalid.</exception>
+        </member>
+        <member name="M:PrescriptionsService.GetPrescriptionByPatientId(System.Int32)">
+            <summary>
+            Retrieves a prescription by patient ID.
+            </summary>
+            <param name="patientId">The patient ID.</param>
+            <returns>The prescription if found; otherwise, null.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if patient ID is invalid.</exception>
+        </member>
+        <member name="M:PrescriptionsService.SearchPrescriptionByMedicationName(System.String)">
+            <summary>
+            Searches for a prescription by medication name.
+            </summary>
+            <param name="name">The medication name to search for.</param>
+            <returns>The prescription if found; otherwise, null.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if medication name is missing.</exception>
+        </member>
+        <member name="M:PrescriptionsService.UpdatePrescription(Prescription)">
+            <summary>
+            Updates an existing prescription after validating its data.
+            </summary>
+            <param name="prescription">The prescription to update.</param>
+            <returns>True if updated; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if prescription is null.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">Thrown if prescription does not exist.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if medication name is missing or dates are invalid.</exception>
+        </member>
+    </members>
+</doc>
