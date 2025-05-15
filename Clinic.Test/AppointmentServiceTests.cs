@@ -141,7 +141,7 @@ public class AppointmentServiceTests
         _mockRepo.Setup(r => r.DoesExist(1)).Returns(false);
 
         var ex = Assert.Throws<Exception>(() => _service.CancelAppointment(appointment));
-        Assert.Contains("does not exist", ex.Message);
+        Assert.Contains("Appointment does not exist", ex.Message);
     }
 
     [Fact]
@@ -161,6 +161,69 @@ public class AppointmentServiceTests
         Assert.True(result);
     }
 
+    //GetAppointmentsByDoctorId Test
+    [Fact]
+    public void GetAppointmentsByDoctorId_NegativeId_ThrowsArgumentOutOfRangeException()
+    {
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _service.GetAppointmentsByDoctorId(-1));
+        Assert.Contains("cannot be negative", ex.Message);
+    }
 
+    [Fact]
+    public void GetAppointmentsByDoctorId_NoAppointments_ThrowsException()
+    {
+        _mockRepo.Setup(r => r.GetAppointmentsByDoctorId(1)).Returns((IQueryable<Appointments>)null);
+
+        var ex = Assert.Throws<Exception>(() => _service.GetAppointmentsByDoctorId(1));
+        Assert.Contains("No appointments found for this doctor", ex.Message);
+    }
+
+    [Fact]
+    public void GetAppointmentsByDoctorId_ValidId_ReturnsAppointments()
+    {
+        var appointments = new List<Appointments>
+    {
+        new Appointments { AppointmentID = 1, DoctorID = 1 }
+    }.AsQueryable();
+
+        _mockRepo.Setup(r => r.GetAppointmentsByDoctorId(1)).Returns(appointments);
+
+        var result = _service.GetAppointmentsByDoctorId(1);
+        Assert.NotNull(result);
+        Assert.Single(result);
+    }
+
+    //Test GetAppointmentsByPatientId
+
+    [Fact]
+    public void GetAppointmentsByPatientId_NegativeId_ThrowsArgumentOutOfRangeException()
+    {
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => _service.GetAppointmentsByPatientId(-5));
+        Assert.Contains("cannot be negative", ex.Message);
+    }
+
+    [Fact]
+    public void GetAppointmentsByPatientId_NoAppointments_ThrowsException()
+    {
+        _mockRepo.Setup(r => r.GetAppointmentsByPatientId(1)).Returns((IQueryable<Appointments>)null);
+
+        var ex = Assert.Throws<Exception>(() => _service.GetAppointmentsByPatientId(1));
+        Assert.Contains("No appointments found for this patient", ex.Message);
+    }
+
+    [Fact]
+    public void GetAppointmentsByPatientId_ValidId_ReturnsAppointments()
+    {
+        var appointments = new List<Appointments>
+    {
+        new Appointments { AppointmentID = 1, PatientID = 1 }
+    }.AsQueryable();
+
+        _mockRepo.Setup(r => r.GetAppointmentsByPatientId(1)).Returns(appointments);
+
+        var result = _service.GetAppointmentsByPatientId(1);
+        Assert.NotNull(result);
+        Assert.Single(result);
+    }
 
 }

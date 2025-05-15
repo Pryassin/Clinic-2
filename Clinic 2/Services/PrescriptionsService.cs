@@ -5,11 +5,10 @@ public class PrescriptionsService : IPrescriptionsService
     private readonly IPrescriptionsRepository _prescriptionsRepository;
     public PrescriptionsService(IPrescriptionsRepository prescriptionsRepository)
     {
-        _prescriptionsRepository = prescriptionsRepository ?? throw new ArgumentNullException(nameof(prescriptionsRepository));
+        _prescriptionsRepository = prescriptionsRepository ;
     }
 
-
-    int IPrescriptionsService.AddPrescription(Prescription prescription)
+    public int AddPrescription(Prescription prescription)
     {
         if (prescription == null)
             throw new ArgumentNullException(nameof(prescription));
@@ -23,7 +22,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.Add(prescription);
     }
 
-    bool IPrescriptionsService.DeletePrescription(int prescriptionId)
+    public bool DeletePrescription(int prescriptionId)
     {
         if (prescriptionId <= 0)
             throw new ArgumentException("Invalid prescription ID.");
@@ -35,11 +34,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.Delete(prescription);
     }
 
-
-
- 
-
-    Prescription IPrescriptionsService.GetPrescriptionById(int prescriptionId)
+    public Prescription GetPrescriptionById(int prescriptionId)
     {
         if (prescriptionId <= 0)
             throw new ArgumentException("Invalid prescription ID.");
@@ -51,7 +46,7 @@ public class PrescriptionsService : IPrescriptionsService
         return prescription;
     }
 
-    Prescription? IPrescriptionsService.GetPrescriptionByMedicalRecordId(int id)
+    public Prescription? GetPrescriptionByMedicalRecordId(int id)
     {
         if (id <= 0)
             throw new ArgumentException("Invalid l record ID.");
@@ -59,7 +54,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.GetByMedicalRecordId(id);
     }
 
-    Prescription? IPrescriptionsService.GetPrescriptionByPatientId(int patientId)
+    public Prescription? GetPrescriptionByPatientId(int patientId)
     {
         if (patientId <= 0)
             throw new ArgumentException("Invalid patient ID.");
@@ -67,7 +62,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.GetByPatientId(patientId);
     }
 
-    Prescription? IPrescriptionsService.SearchPrescriptionByMedicationName(string name)
+    public Prescription? SearchPrescriptionByMedicationName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Medication name is required.");
@@ -75,7 +70,7 @@ public class PrescriptionsService : IPrescriptionsService
         return _prescriptionsRepository.SearchByMedicationName(name);
     }
 
-    bool IPrescriptionsService.UpdatePrescription(Prescription prescription)
+    public bool UpdatePrescription(Prescription prescription)
     {
         if (prescription == null)
             throw new ArgumentNullException(nameof(prescription));

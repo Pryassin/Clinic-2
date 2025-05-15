@@ -52,7 +52,7 @@ public class AppointmentService : IAppointmentService
         {
             throw new ArgumentNullException(nameof(appointment), "Appointment cannot be null");
         }
-        if (appointment.AppointmentStatus == enAppointmentStatus.Scheduled&& appointment.AppointmentStatus!=enAppointmentStatus.Rescheduled)
+        if (appointment.AppointmentStatus != enAppointmentStatus.Scheduled&& appointment.AppointmentStatus!=enAppointmentStatus.Rescheduled)
         {
             throw new InvalidOperationException("Only scheduled or rescheduled appointments can be cancelled.");
         }
@@ -60,7 +60,7 @@ public class AppointmentService : IAppointmentService
         {
             throw new InvalidOperationException("Cannot cancel an appointment in the past.");
         }
-        if (!_appointmentRepository.DoesExist(appointment.AppointmentID))
+        if (_appointmentRepository.DoesExist(appointment.AppointmentID) == false)
         {
             throw new Exception("Appointment does not exist");
         }
@@ -104,10 +104,12 @@ public class AppointmentService : IAppointmentService
         {
             throw new ArgumentOutOfRangeException(nameof(patientId), " cannot be negative");
         }
-        var appointments = _appointmentRepository.GetAppointmentsByDoctorId(patientId);
+        var appointments = _appointmentRepository.GetAppointmentsByPatientId(patientId);
         if (appointments == null)
             throw new Exception("No appointments found for this patient.");
         return appointments;
     }
+
+
 
 }
