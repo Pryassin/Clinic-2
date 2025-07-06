@@ -12,7 +12,11 @@ namespace DataLayer.Data
 {
     public class ClinicDbContext:DbContext
     {
-      
+        public ClinicDbContext(DbContextOptions<ClinicDbContext> option):base(option)
+        {
+
+        }
+
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Appointments> Appointments { get; set; }
@@ -20,18 +24,7 @@ namespace DataLayer.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
-            var connectionString = configuration.GetConnectionString("StringConnection");
-            optionsBuilder
-    .UseSqlServer(connectionString);
-       
-
-        }
+  
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

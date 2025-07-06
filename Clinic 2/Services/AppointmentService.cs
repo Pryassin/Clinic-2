@@ -29,10 +29,10 @@ public class AppointmentService : IAppointmentService
             throw new ArgumentException("Rescheduled date must be in the future.");
         }
         bool doctorAvailable = _appointmentRepository.IsDoctorAvailableForRescheduel(
-            appointment.DoctorID, newDateTime, appointment.AppointmentID);
+            appointment.DoctorID, newDateTime, appointment.AppointmentId);
 
         bool patientAvailable = _appointmentRepository.IsPatientAvailableForRescheduel(
-            appointment.PatientID, newDateTime, appointment.AppointmentID);
+            appointment.PatientID, newDateTime, appointment.AppointmentId);
         if (!doctorAvailable || !patientAvailable)
             return false; // Doctor or patient is not available at the new date/time
 
@@ -60,7 +60,7 @@ public class AppointmentService : IAppointmentService
                 AppointmentStatus = enAppointmentStatus.Scheduled
             };
             _appointmentRepository.Add(appointment);
-            return appointment.AppointmentID;
+            return appointment.AppointmentId;
         }
         return -1;
     }
@@ -87,7 +87,7 @@ public class AppointmentService : IAppointmentService
         {
             throw new InvalidOperationException("Cannot cancel an appointment in the past.");
         }
-        if (_appointmentRepository.DoesExist(appointment.AppointmentID) == false)
+        if (_appointmentRepository.DoesExist(appointment.AppointmentId) == false)
         {
             throw new Exception("Appointment does not exist");
         }
@@ -156,4 +156,5 @@ public class AppointmentService : IAppointmentService
             throw new Exception("No appointments found for this patient.");
         return appointments;
     }
+
 }

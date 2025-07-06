@@ -1,6 +1,9 @@
-﻿public class Appointments
+﻿using System.ComponentModel.DataAnnotations;
+
+public class Appointments
 {
-    public int AppointmentID { get; set; }
+    [Key]
+    public int AppointmentId { get; set; }
     public int PatientID { get; set; }
     public int DoctorID { get; set; } // foreign key to Doctor
     public DateTime AppointmentDateTime { get; set; }

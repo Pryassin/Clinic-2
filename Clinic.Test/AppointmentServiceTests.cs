@@ -19,7 +19,7 @@ public class AppointmentServiceTests
     { 
         var appointment = new Appointments
         {
-            AppointmentID = 1,
+            AppointmentId = 1,
         };
         _mockRepo.Setup(s => s.GetByID(It.IsAny<int>())).Returns(appointment);
 
@@ -33,7 +33,7 @@ public class AppointmentServiceTests
     {
         var appointment = new Appointments
         {
-            AppointmentID = 1,
+            AppointmentId = 1,
         };
         _mockRepo.Setup(s => s.GetByID(It.IsAny<int>())).Returns((Appointments) null);
       
@@ -53,7 +53,7 @@ public class AppointmentServiceTests
     [Fact]
     public void RescheduleAppointment_PastDate_ThrowsArgumentException()
     {
-        var appointment = new Appointments { AppointmentID = 1, DoctorID = 1, PatientID = 1 };
+        var appointment = new Appointments { AppointmentId = 1, DoctorID = 1, PatientID = 1 };
         var pastDate = DateTime.Now.AddHours(-1);
 
         var ex = Assert.Throws<ArgumentException>(() => _service.RescheduleAppointment(appointment, pastDate));
@@ -63,7 +63,7 @@ public class AppointmentServiceTests
     [Fact]
     public void RescheduleAppointment_DoctorOrPatientNotAvailable_ReturnsFalse()
     {
-        var appointment = new Appointments { AppointmentID = 1, DoctorID = 1, PatientID = 1 };
+        var appointment = new Appointments { AppointmentId = 1, DoctorID = 1, PatientID = 1 };
         var newDate = DateTime.Now.AddDays(1);
 
         _mockRepo.Setup(r => r.IsDoctorAvailableForRescheduel(1, newDate, 1)).Returns(false);
@@ -85,7 +85,7 @@ public class AppointmentServiceTests
 
         _mockRepo.Setup(r => r.IsDoctorAvailable(1, date)).Returns(true);
         _mockRepo.Setup(r => r.IsPatientAvailable(1, date)).Returns(true);
-        _mockRepo.Setup(r => r.Add(It.IsAny<Appointments>())).Callback<Appointments>(a => a.AppointmentID = 10);
+        _mockRepo.Setup(r => r.Add(It.IsAny<Appointments>())).Callback<Appointments>(a => a.AppointmentId = 10);
 
         var result = _service.ScheduleAppointment(doctor, patient, date);
         Assert.Equal(10, result);
@@ -119,7 +119,7 @@ public class AppointmentServiceTests
     {
         var appointment = new Appointments
         {
-            AppointmentID = 1,
+            AppointmentId = 1,
             AppointmentDateTime = DateTime.Now.AddDays(-1),
             AppointmentStatus = enAppointmentStatus.Scheduled
         };
@@ -133,7 +133,7 @@ public class AppointmentServiceTests
     {
         var appointment = new Appointments
         {
-            AppointmentID = 1,
+            AppointmentId = 1,
             AppointmentDateTime = DateTime.Now.AddDays(1),
             AppointmentStatus = enAppointmentStatus.Scheduled
         };
@@ -149,7 +149,7 @@ public class AppointmentServiceTests
     {
         var appointment = new Appointments
         {
-            AppointmentID = 1,
+            AppointmentId = 1,
             AppointmentDateTime = DateTime.Now.AddDays(1),
             AppointmentStatus = enAppointmentStatus.Rescheduled
         };
@@ -183,7 +183,7 @@ public class AppointmentServiceTests
     {
         var appointments = new List<Appointments>
     {
-        new Appointments { AppointmentID = 1, DoctorID = 1 }
+        new Appointments { AppointmentId = 1, DoctorID = 1 }
     }.AsQueryable();
 
         _mockRepo.Setup(r => r.GetAppointmentsByDoctorId(1)).Returns(appointments);
@@ -216,7 +216,7 @@ public class AppointmentServiceTests
     {
         var appointments = new List<Appointments>
     {
-        new Appointments { AppointmentID = 1, PatientID = 1 }
+        new Appointments { AppointmentId = 1, PatientID = 1 }
     }.AsQueryable();
 
         _mockRepo.Setup(r => r.GetAppointmentsByPatientId(1)).Returns(appointments);

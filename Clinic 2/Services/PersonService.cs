@@ -25,7 +25,7 @@ public class PersonService : IPersonService
     /// </summary>
     /// <param name="person">The person object to check.</param>
     /// <exception cref="ArgumentNullException">Thrown if the person is null.</exception>
-    void EnsurePersonIsNotNull(Person person)
+    private void EnsurePersonIsNotNull(Person person)
     {
         if (person == null)
             throw new ArgumentNullException(nameof(person), "Person cannot be null");

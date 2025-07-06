@@ -5,8 +5,8 @@ public class AppointmentsConfiguration : IEntityTypeConfiguration<Appointments>
 {
     void IEntityTypeConfiguration<Appointments>.Configure(EntityTypeBuilder<Appointments> builder)
     {
-        builder.HasKey(e => e.AppointmentID);
-        builder.Property(e => e.AppointmentID).ValueGeneratedOnAdd();
+        builder.HasKey(e => e.AppointmentId);
+        builder.Property(e => e.AppointmentId).ValueGeneratedOnAdd();
         builder.Property(e => e.AppointmentDateTime).HasColumnType("datetime");
         builder.Property(e => e.AppointmentStatus).HasColumnType("tinyint");
 

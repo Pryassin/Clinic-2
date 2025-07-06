@@ -31,7 +31,6 @@ namespace Clinic.Test
             //Assert
             Assert.Equal(1, result);
         }
-
         [Fact]
         public void AddPerson_WithNonValidPerson_ThrowsException()
         {
@@ -52,7 +51,6 @@ namespace Clinic.Test
             Assert.Equal("Person failed to save to the database.", ex.Message);
 
         }
-
         [Fact]
         public void AddPerson_WithNullPerson_ThrowsArgumentNullException()
         {
@@ -64,8 +62,8 @@ namespace Clinic.Test
             Assert.Contains("Person cannot be null", ex.Message);
         }
 
+
         // Delete Person Func Tests
-      
         [Fact]
         public void DeletePerson_WithValidId_ReturnsTrue()
         {
@@ -75,6 +73,7 @@ namespace Clinic.Test
                 PersonID = 1,
                 Name = "John Doe",
             };
+
             // Arrange: Create a mock repository
             var MockRep = new Mock<IPersonRepository>();
 
@@ -117,7 +116,6 @@ namespace Clinic.Test
             Assert.Contains("ID must be greater than zero", ex.Message);
         }
 
-     
         //Get Person By Id Func Tests
         [Fact]
         public void GetPersonById_WithValidId_ReturnsPerson()
@@ -136,7 +134,6 @@ namespace Clinic.Test
             // Assert
             Assert.Equal(person, result);
         }
-
         [Fact]
         public void GetPersonById_WithInvalidId_ThrowsKeyNotFoundException()
         {
@@ -149,7 +146,6 @@ namespace Clinic.Test
             Assert.Contains("Person with ID 1 not found", ex.Message);
         }
         [Fact]
-
         public void GetPersonById_WithNegativeId_ThrowsArgumentOutOfRangeException()
         {
             // Arrange
@@ -160,8 +156,8 @@ namespace Clinic.Test
             Assert.Contains("ID must be greater than zero", ex.Message);
         }
 
-        //Update Person Func Tests
 
+        //Update Person Func Tests
         [Fact]
         public void UpdatePerson_WithValidPerson_ReturnsTrue()
         {
