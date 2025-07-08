@@ -1,7 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Appointments
 {
+    
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     [Key]
     public int AppointmentId { get; set; }
     public int PatientID { get; set; }

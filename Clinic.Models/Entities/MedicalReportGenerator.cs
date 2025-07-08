@@ -1,6 +1,9 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 public class MedicalReportGenerator
-{   
+{
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MedicalReportId { get; set; }
     public MedicalRecord LastMedicalRecord { get; set; } // navigate to the last MedicalRecord
     public string DoctorName { get; set; }

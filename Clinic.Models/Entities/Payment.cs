@@ -1,5 +1,8 @@
-﻿public class Payment
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+public class Payment
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int PaymentID { get; set; }
     public DateTime PaymentDate { get; set; }
     public string PaymentMethod { get; set; }

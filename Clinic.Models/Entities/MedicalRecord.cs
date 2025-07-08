@@ -1,5 +1,8 @@
-﻿public class MedicalRecord
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+public class MedicalRecord
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int MedicalRecordID { get; set; }
     public string VisitDescription { get; set; }
     public string Diagnosis { get; set; }

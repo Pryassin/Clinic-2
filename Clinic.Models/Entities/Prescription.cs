@@ -1,5 +1,8 @@
-﻿public class Prescription
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+public class Prescription
 {
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int PrescriptionID { get; set; }
     public int MedicalRecordID { get; set; }  // Foreign key to MedicalRecords
     public string MedicationName { get; set; }

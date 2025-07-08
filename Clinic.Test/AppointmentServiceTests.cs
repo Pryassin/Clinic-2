@@ -1,6 +1,5 @@
 ﻿using Moq;
 using DataLayer.Repositories.Interfaces;
-
 public class AppointmentServiceTests
 {
     private readonly Mock<IAppointmentRepository> _mockRepo;

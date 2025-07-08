@@ -16,7 +16,7 @@ namespace Clinic.Test
             //Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
        
             };
@@ -37,7 +37,7 @@ namespace Clinic.Test
             //Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
             var MockRep = new Mock<IPersonRepository>();
@@ -70,7 +70,7 @@ namespace Clinic.Test
             //Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
 
@@ -123,7 +123,7 @@ namespace Clinic.Test
             // Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
             var MockRep = new Mock<IPersonRepository>();
@@ -164,7 +164,7 @@ namespace Clinic.Test
             // Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
             var MockRep = new Mock<IPersonRepository>();
@@ -182,7 +182,7 @@ namespace Clinic.Test
             // Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
             var MockRep = new Mock<IPersonRepository>();
@@ -198,12 +198,12 @@ namespace Clinic.Test
             // Arrange
             var person = new Person
             {
-                PersonID = 1,
+                PersonId = 1,
                 Name = "John Doe",
             };
             var existingPerson = new Person
             {
-                PersonID = 2,
+                PersonId = 2,
                 Name = "Jane Doe",
             };
             var MockRep = new Mock<IPersonRepository>();

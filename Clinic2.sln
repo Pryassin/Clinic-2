@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TClinic.Test", "Clinic.Test\TClinic.Test.csproj", "{B0BA8BDA-D91E-496D-B369-0B6508A3FC82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Models", "Clinic.Models\Clinic.Models.csproj", "{DD4A4017-5F47-42C7-98A5-CCA027DC9060}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelsLayer", "Clinic.Models\ModelsLayer.csproj", "{DD4A4017-5F47-42C7-98A5-CCA027DC9060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.API", "Clinic.API\Clinic.API.csproj", "{88738987-E9E9-412B-893D-D4808B3FEE92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APILayer", "Clinic.API\APILayer.csproj", "{88738987-E9E9-412B-893D-D4808B3FEE92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

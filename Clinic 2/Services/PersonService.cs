@@ -108,12 +108,12 @@ public class PersonService : IPersonService
     public bool UpdatePerson(Person person)
     {
         EnsurePersonIsNotNull(person);
-        var existingPerson = _personRepository.GetByID(person.PersonID);
+        var existingPerson = _personRepository.GetByID(person.PersonId);
         if (existingPerson == null)
         {
-            throw new KeyNotFoundException($"Person with ID {person.PersonID} not found");
+            throw new KeyNotFoundException($"Person with ID {person.PersonId} not found");
         }
-        if (existingPerson.PersonID != person.PersonID)
+        if (existingPerson.PersonId != person.PersonId)
         {
             throw new InvalidOperationException("Cannot update a person with a different ID");
         }

@@ -1,6 +1,9 @@
-﻿public class Person
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+public class Person
 {
-    public int PersonID { get; set; }
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int PersonId { get; set; }
     public string Name { get; set; }
     public DateTime DateOfBirth { get; set; }
     public char Gender { get; set; }
