@@ -68,9 +68,10 @@ public class PersonService : IPersonService
         {
             throw new KeyNotFoundException($"Person with ID {id} not found");
         }
-        if (_personRepository.Delete(person) == false)
+    
+        if (!_personRepository.Delete(person))
         {
-            throw new Exception("Person failed to delete from the database.");
+            throw new InvalidOperationException("Failed to delete person from database");
         }
         return true;
     }
@@ -113,17 +114,15 @@ public class PersonService : IPersonService
         {
             throw new KeyNotFoundException($"Person with ID {person.PersonId} not found");
         }
-        if (existingPerson.PersonId != person.PersonId)
-        {
-            throw new InvalidOperationException("Cannot update a person with a different ID");
-        }
-        if (_personRepository.Update(person) == true)
-        {
-            return true;
-        }
-        else
-        {
-            throw new Exception("Failed to update person");
-        }
+        existingPerson.PersonId = person.PersonId;
+        existingPerson.Name  = person.Name;
+        existingPerson.Address = person.Address;
+        existingPerson.PhoneNumber = person.PhoneNumber;
+        existingPerson.Email = person.Email;
+        existingPerson.DateOfBirth = person.DateOfBirth;
+        existingPerson.Gender = person.Gender;
+        return _personRepository.Update(existingPerson);
+      
     }
+
 }

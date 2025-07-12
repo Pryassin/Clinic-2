@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Clinic 2\Service Layer.csproj" />
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

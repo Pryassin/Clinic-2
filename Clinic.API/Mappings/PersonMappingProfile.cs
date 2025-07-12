@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Clinic.Models.DTOs.Person;
+using ModelsLayer.DTOs.Person;
 
 namespace APILayer.Mappings
 {
@@ -12,6 +13,9 @@ namespace APILayer.Mappings
 
             CreateMap<GetPersonDto, Person>();
             CreateMap<Person,GetPersonDto>();
+
+            CreateMap<UpdatePersonDto, Person>();
+            CreateMap<Person, UpdatePersonDto>();
         }
     }
 }
