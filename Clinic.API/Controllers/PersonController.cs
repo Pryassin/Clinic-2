@@ -18,7 +18,7 @@ namespace Clinic.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/{id}")]
         public ActionResult<Person> GetPersonByID(int id)
         {
 
@@ -45,7 +45,7 @@ namespace Clinic.API.Controllers
         }
 
         [HttpPost]
-        [Route("AddPerson")]
+        [Route("")]
         public ActionResult<int> AddPerson([FromBody] CreatePersonDto person)
         {
             try
@@ -66,7 +66,7 @@ namespace Clinic.API.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete/{id}")]
+        [Route("/{id}")]
         public ActionResult DeletePerson(int id)
         {
             try

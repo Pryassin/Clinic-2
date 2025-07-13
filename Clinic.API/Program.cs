@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAutoMapper(typeof(Program));
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -14,7 +14,12 @@ builder.Services.AddDbContext<ClinicDbContext>(cnt => cnt.UseSqlServer
 (builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
-builder.Services.AddScoped<PersonService, PersonService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
+
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientService, PatientService>();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -46,7 +46,7 @@ public class PersonService : IPersonService
         {
             throw new Exception("Person failed to save to the database.");
         }
-        return result;
+        return person.PersonId;
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class PersonService : IPersonService
         {
             throw new KeyNotFoundException($"Person with ID {id} not found");
         }
-    
+
         if (!_personRepository.Delete(person))
         {
             throw new InvalidOperationException("Failed to delete person from database");
@@ -115,14 +115,14 @@ public class PersonService : IPersonService
             throw new KeyNotFoundException($"Person with ID {person.PersonId} not found");
         }
         existingPerson.PersonId = person.PersonId;
-        existingPerson.Name  = person.Name;
+        existingPerson.Name = person.Name;
         existingPerson.Address = person.Address;
         existingPerson.PhoneNumber = person.PhoneNumber;
         existingPerson.Email = person.Email;
         existingPerson.DateOfBirth = person.DateOfBirth;
         existingPerson.Gender = person.Gender;
         return _personRepository.Update(existingPerson);
-      
-    }
 
+
+    }
 }

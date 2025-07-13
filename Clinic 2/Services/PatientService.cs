@@ -1,6 +1,8 @@
 ﻿using DataLayer.Data;
 using DataLayer.Repositories;
 using DataLayer.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 /// <summary>
 /// Service class for managing patient-related operations.
@@ -38,10 +40,7 @@ public class PatientService : IPatientService
     public int AddPaytient(Patient patient)
     {
         EnsurePatientNotNull(patient);
-        if (_patientRepository.DoesExist(patient.PatientID))
-        {
-            throw new ArgumentException("Patient already exists");
-        }
+
         return _patientRepository.Add(patient);
     }
 
@@ -78,7 +77,11 @@ public class PatientService : IPatientService
             throw new ArgumentException("Invalid Patient ID can't be negative");
         }
         var patient = _patientRepository.GetByID(id);
-        EnsurePatientNotNull(patient);
+
+        if(patient==null)
+        {
+            throw new KeyNotFoundException("Person was not found");
+        }
         return patient;
     }
 
@@ -91,7 +94,15 @@ public class PatientService : IPatientService
     public bool UpdatePatient(Patient patient)
     {
         EnsurePatientNotNull(patient);
-        return _patientRepository.Update(patient);
+
+        try
+        {
+            return _patientRepository.Update(patient);
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            throw new KeyNotFoundException($"Patient with ID {patient.PatientID} not found");
+        }
     }
 }
 
