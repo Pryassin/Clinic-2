@@ -40,7 +40,7 @@ namespace APILayer.Controllers
         }
 
         [HttpPost]
-        [Route("api/")]
+        [Route("")]
         public ActionResult<int> AddPatient([FromBody] CreateUpdatePatientDTO patient)
         {
             try
